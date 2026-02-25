@@ -1,106 +1,85 @@
-/* This is explicitly not a sass file and doesn't go through our normal process because it is only for use in a downloaded zip */
-html,
-body {
-  background: #fff;
-  margin: 0;
-  padding: 0;
-  color: #444;
-  font: 15px/1.4 arial, sans-serif;
+/* Clean, modern styling for the exported Canvas ePortfolio pages
+   Notes:
+   - Keeps the existing HTML structure (same IDs/classes)
+   - Mobile-friendly (no fixed min-width)
+*/
+
+:root{
+  --bg: #f6f7fb;
+  --card: #ffffff;
+  --text: #1f2937;
+  --muted: #6b7280;
+  --border: rgba(17, 24, 39, 0.10);
+  --shadow: 0 10px 30px rgba(17, 24, 39, 0.08);
+  --shadow-soft: 0 6px 18px rgba(17, 24, 39, 0.08);
+  --accent: #2563eb; /* blue */
+  --accent-2: #7c3aed; /* purple */
+  --accent-soft: rgba(37, 99, 235, 0.12);
 }
 
-.clear {
+*{ box-sizing: border-box; }
+
+html, body{
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  /* system font stack looks professional and loads fast */
+  font: 16px/1.55 system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji", sans-serif;
+}
+
+img{ max-width: 100%; height: auto; vertical-align: middle; }
+
+a{
+  color: var(--accent);
+  text-decoration: none;
+}
+a:hover{ text-decoration: underline; }
+
+.clear{
   clear: both;
   display: block;
   margin: 0;
   padding: 0;
-  height: 0px;
-  font-size: 0px;
+  height: 0;
+  font-size: 0;
 }
 
-a {
-  color: #333;
-  text-decoration: none;
-}
-
-a img {
-  border: 0;
-}
-
-form {
-  margin-top: 0;
-  margin-bottom: 0;
-}
-
-img {
-  vertical-align: middle;
-}
-
-#container {
+/* Page wrapper */
+#container{
   width: 100%;
-  min-width: 900px;
-  position: relative;
-  top: 0;
+  min-width: 0;           /* remove the old fixed desktop constraint */
   margin: 0;
   padding: 0;
 }
 
-#header {
-  color: #eee;
-  background-color: #248;
-  height: 5em;
-  height: 60px;
+/* Header */
+#header{
+  color: #fff;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+  padding: 20px 18px;
   position: relative;
-  padding-left: 20px;
 }
 
-#header .logo {
-  float: left;
-  margin-right: 15px;
-  height: 60px;
-}
+/* The exported pages used to include a Canvas logo. If any remains, hide it. */
+#header .logo{ display:none !important; }
 
-#header h1 {
+#header h1{
   margin: 0;
-  padding-top: 0.2em;
-  font-size: 1.8em;
-  line-height: 1em;
+  font-size: 1.55rem;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
 }
-
-#header h2 {
-  margin: 0;
-  font-size: 1.2em;
-  font-weight: normal;
-  padding-left: 5em;
-  color: #aaa;
+#header h2{
+  margin: 6px 0 0 0;
+  font-size: 0.98rem;
+  font-weight: 500;
+  color: rgba(255,255,255,0.82);
 }
+#header h2 a{ color: rgba(255,255,255,0.90); }
+#header h2 a:hover{ color: #fff; text-decoration: underline; }
 
-#header h2 a {
-  color: #aaa;
-}
-
-#header #content_tags {
-  position: absolute;
-  right: 10px;
-  bottom: 5px;
-  color: #444;
-  font-size: 0.8emf;
-}
-
-#header #content_tags:hover,
-#header #content_tags:focus {
-  color: #ccc;
-}
-
-#header #content_tags:hover a,
-#header #content_tags:focus a {
-  color: #ccc;
-}
-
-#header #content_tags a {
-  color: #222;
-}
-
-#header #skip_navigation_link {
+#header #skip_navigation_link{
   position: absolute;
   left: -10000px;
   top: auto;
@@ -108,251 +87,179 @@ img {
   height: 1px;
   overflow: hidden;
 }
-
-#header #skip_navigation_link:focus {
-  left: 0px;
+#header #skip_navigation_link:focus{
+  left: 14px;
+  top: 14px;
   width: auto;
   height: auto;
-  color: #aaa;
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.14);
+  color: #fff;
+  outline: 2px solid rgba(255,255,255,0.35);
+  text-decoration: none;
 }
 
-#nav-level2 {
-  clear: both;
-  background-color: #ccc;
-  border-top: 1px solid #222;
-  border-bottom: 1px solid #444;
-  padding-left: 1em;
+/* Top navigation (tabs) */
+#nav-level2{
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(246, 247, 251, 0.92);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
 }
 
-#nav-level2 ul {
+#nav-level2 ul{
+  margin: 0 auto;
+  padding: 10px 14px;
+  list-style: none;
+  max-width: 1100px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+#nav-level2 li{
   margin: 0;
   padding: 0;
 }
 
-#nav-level2 li {
-  float: left;
-  list-style-type: none;
-  padding: 0.2em 1em 0.2em 1em;
+#nav-level2 a{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  color: var(--text);
+  font-weight: 600;
+  border: 1px solid transparent;
 }
 
-#nav-level2 li .title {
-  font-size: 0.8em;
-  color: #888;
-  padding-left: 5px;
-}
-
-#nav-level2 li .subtitle {
-  font-weight: bold;
-  color: #444;
-}
-
-#nav-level2 a {
+#nav-level2 li.current a{
+  background: var(--accent-soft);
+  border-color: rgba(37, 99, 235, 0.25);
+  color: var(--accent);
   text-decoration: none;
-  color: #222;
 }
 
-#nav-level2 a:hover {
+#nav-level2 a:hover{
+  background: rgba(255,255,255,0.9);
+  border-color: var(--border);
+  text-decoration: none;
+  box-shadow: var(--shadow-soft);
+}
+
+/* Content layout */
+#content{
+  margin: 18px auto 40px auto;
+  max-width: 1100px;
+  padding: 0 14px;
+  float: none;
+  width: auto;
+  clear: both;
+}
+
+#content > h2{
+  margin: 0 0 12px 0;
+  font-size: 1.25rem;
+  letter-spacing: -0.01em;
+}
+
+/* Card surface for the main page content */
+#page_content{
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  padding: 18px 18px 10px 18px;
+}
+
+/* Sections */
+.section{
+  margin: 0 0 18px 0;
+  padding: 0 0 18px 0;
+  border-bottom: 1px solid var(--border);
+}
+.section:last-child{
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+/* Canvas export uses headings inside .user_content */
+.user_content h1,
+.user_content h2,
+.user_content h3,
+.user_content h4{
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+
+.user_content h2{ font-size: 1.18rem; margin-top: 0.4rem; }
+.user_content h3{ font-size: 1.05rem; margin-top: 1.0rem; }
+.user_content p{ margin: 0.65rem 0; color: var(--text); }
+.user_content ul, .user_content ol{ padding-left: 1.25rem; }
+.user_content li{ margin: 0.25rem 0; }
+
+.user_content a{
+  color: var(--accent);
   text-decoration: underline;
+  text-underline-offset: 2px;
 }
+.user_content a:hover{ color: #1d4ed8; }
 
-#nav-level2 li.current {
-  font-weight: bold;
-}
-
-#nav-level2 li:hover {
-  background-color: #eee;
-}
-
-#content .user_content a,
-#wide_content .user_content a {
-  text-decoration: underline;
-  color: #cd002f;
-}
-
-#content {
-  clear: left;
-  float: left;
-  width: 60%;
-  margin-left: 15px;
-  padding-top: 10px;
-  position: relative;
-}
-
-#content h2 {
-  font: 1.7em/1.3 georgia, serif;
-  color: #ed002f;
-  margin-top: 0;
-  margin-bottom: 0.1em;
-}
-
-#content h3 {
-  font: 1.3em/1 georgia, serif;
-  color: #444;
-  margin-top: 0;
-  margin-bottom: 0.1em;
-}
-
-#content p {
-  margin-top: 0;
-  margin-bottom: 1em;
-}
-
-#sidebar,
-#floating_sidebar {
-  float: right;
-  width: 30%;
-  background: #eee;
-  border: 1px solid #aaa;
-  border-top-width: 0;
-  border-right-width: 0;
-  padding: 1em;
-  -moz-border-radius-bottomleft: 5px;
-  -webkit-border-bottom-left-radius: 5px;
-}
-
-#sidebar h2,
-#floating_sidebar h2 {
-  font: 1.3em/1 georgia, serif;
-  color: #ed002f;
-  margin-top: 0;
-  margin-bottom: 0.1em;
-}
-
-#sidebar h2 .small_link,
-#floating_sidebar h2 .small_link {
-  font-size: 0.6em;
-  font-family: arial, sans-serif;
-}
-
-#sidebar h4.item_list_header,
-#floating_sidebar h4.item_list_header {
-  font-size: 1.3em;
-  font-weight: bold;
-  border-bottom: 1px solid #888;
-  margin: 0;
-}
-
-#sidebar ul.item_list,
-#floating_sidebar ul.item_list {
-  margin-top: 0;
-  list-style-type: none;
-  padding-left: 15px;
-}
-
-#sidebar ul.item_list.limit_height,
-#floating_sidebar ul.item_list.limit_height {
-  max-height: 150px;
-  overflow: auto;
-}
-
-#sidebar p,
-#floating_sidebar p {
-  margin-top: 0;
-  margin-bottom: 1em;
-}
-
-#sidebar table.summary,
-#floating_sidebar table.summary {
+/* Tables (common in project writeups) */
+table{
+  width: 100%;
   border-collapse: collapse;
-  min-width: 80%;
-  margin: 5px 20px;
-}
-
-#sidebar table.summary th,
-#floating_sidebar table.summary th {
-  background-color: #444;
-  color: #eee;
-  border: 1px solid #888;
-  font-weight: bold;
-  padding: 2px 10px;
-  text-align: left;
-}
-
-#sidebar table.summary td,
-#floating_sidebar table.summary td {
-  border: 1px solid #888;
-  background-color: #ddd;
-}
-
-.event_pending {
-  opacity: 0.4;
-  filter: alpha(opacity=40);
-}
-
-.nobr {
-  white-space: nowrap;
-}
-
-.hidden-readable {
-  position: absolute;
-  left: -10000px;
-  top: auto;
-  width: 1px;
-  height: 1px;
+  margin: 0.9rem 0;
   overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 12px;
 }
-
-#page_content .section {
-  position: relative;
-}
-
-#page_content .section .links,
-#page_content .section .section_type_name,
-#page_content .section .move_link {
-  display: none;
-}
-
-#page_content .section .upload {
-  font-size: 1.1em;
-}
-
-#page_content .section .upload .filename {
-  font-weight: bold;
-  text-decoration: underline;
-}
-
-#page_content .section .file_list {
+th, td{
   text-align: left;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+th{
+  background: rgba(17, 24, 39, 0.03);
+  font-weight: 700;
+}
+tr:last-child td{ border-bottom: none; }
+
+/* “File” links (PDFs/ZIPs) look nicer as chips */
+.user_content a[href$=".pdf"],
+.user_content a[href$=".zip"]{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 12px;
+  background: rgba(37, 99, 235, 0.08);
+  border: 1px solid rgba(37, 99, 235, 0.18);
+  text-decoration: none;
+  font-weight: 600;
+}
+.user_content a[href$=".pdf"]:hover,
+.user_content a[href$=".zip"]:hover{
+  background: rgba(37, 99, 235, 0.12);
 }
 
-#page_content .section .file_list .instTree .leaf.active {
-  background-color: #ddd;
-  -moz-border-radius: 3px;
+/* Footer (if any) */
+#footer{
+  max-width: 1100px;
+  margin: 20px auto 40px auto;
+  padding: 0 14px;
+  color: var(--muted);
 }
 
-#page_content .section.read_only div.section_content {
-  display: block;
-}
-
-#page_content .section.read_only div.form_content {
-  display: none;
-}
-
-#sidebar .section_header {
-  border-bottom: 1px solid #888;
-  font-size: 1.3em;
-  font-weight: bold;
-  position: relative;
-}
-
-#sidebar .section_header .links {
-  position: absolute;
-  right: 0;
-  bottom: 2px;
-  font-size: 0.6em;
-  font-weight: normal;
-}
-
-#sidebar #page_list {
-  padding-left: 30px;
-  margin-top: 5px;
-  list-style-type: none;
-}
-
-#sidebar #page_list .page.current a {
-  font-weight: bold;
-}
-
-#sidebar #page_list .page a:hover {
-  text-decoration: underline;
+/* Make it comfortable on small screens */
+@media (max-width: 640px){
+  #header{ padding: 18px 14px; }
+  #header h1{ font-size: 1.35rem; }
+  #header h2{ font-size: 0.95rem; }
+  #page_content{ padding: 14px; border-radius: 16px; }
+  #nav-level2 ul{ padding: 10px 10px; }
 }
